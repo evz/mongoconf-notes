@@ -8,7 +8,8 @@ MongoDB in City of Chicago
 
 Project seems relatively new but has big goals. Really about connecting the dots.
 
-$within API to filter results after being queried by other types of indexes. 
-Apparently, using 2d index with other stuff can slow queries down tremendously
+Built in $within operator was found to be kinda slow. City is working with 10gen to develop 
+a better API to filter results after being queried by other types of indexes. 
+Apparently, using 2d index with other stuff can slow queries down tremendously. 
 
 Picking shard key is tricky. Have to figure out a key that can put like stuff in similar shards without gotchas.

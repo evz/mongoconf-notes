@@ -1,3 +1,14 @@
 MongoDB in City of Chicago
 
+* The big question that they are attempting to answer is "How to tell the story of a place..."
+* Not as simple as it sounds given that most data lives in silos by organization
+* Solution: Bring data into one place, make it available in realtime, and try to connect the dots
 
+* Windy grid: spatial/temporal DB setup. Spatial, in that it's generally geolocated and temporal in that it's timestamped
+
+Project seems relatively new but has big goals. Really about connecting the dots.
+
+$within API to filter results after being queried by other types of indexes. 
+Apparently, using 2d index with other stuff can slow queries down tremendously
+
+Picking shard key is tricky. Have to figure out a key that can put like stuff in similar shards without gotchas.

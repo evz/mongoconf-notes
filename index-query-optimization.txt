@@ -1,0 +1,39 @@
+Indexing and Query Optimization
+
+So, DB indexes, are basically, uh, indexes. 
+Without an index DB has to look through the whole thing in much the same way as you'd need to look through a book
+Indexes in MongoDB are in the BTree family with a few optimizations
+
+Biggest opportunity for Mongo optimization is in indexes
+If queries are returning 10% or less of your overall data than indexing is good practice
+
+* Indexes live with collections
+* Compound indexes are basically the concatenation of the fields included in the index
+* The order that you place the keys when you create the index
+* Indexes in arrays automatically create a multikey index that allows lookups on all the items in the array
+* Indexes can be created on subdocuments using dot notation
+* Can also make indexes for entire embedded docs
+* _id index is always indexed
+* All indexes point directly to the location of the document. Not just _id index (aka PK)
+
+* Building index is blocking operation. 
+* You can give it optional arg {'background': true} to build it in the BG
+* Can take twice as long because of allowing other traffic
+* Wreaks havoc on what is resident in memory if DB is large
+* Longstanding bug where index operation on primary member of replication set translates to blocking operation on secondary replication set even if {'background': true} arg is passed
+* Indexes can have uniqueness constraints
+* Sparse indexes - neat
+* TTL collections can expire data after a certain number of seconds
+
+* Collection cannot have more than 64 indexes
+* Index keys cannot be more than 1024 bytes
+* Name of the index cannot be longer than 128 utf-8 characters
+* Queries can only use one index
+* Each additional index impacts the performance of writes
+
+* Profiler available at process level (db.setProfilingLevel())
+* explain method can then tell you what is slow about a query  
+* Need BTree to show up in explain under cursor key not BasicBursor
+* measure of a good index is where n / nscanned need to be close to be one (n and nscanned is in explain method return)
+* force the use of a particular index using .hint with query
+* Profile what is happening to find out what is happening with queries

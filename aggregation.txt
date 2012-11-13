@@ -13,3 +13,11 @@ Aggregation Framework
 * Lots of expressions available for $project and $group (look at the docs)
 
 Rest of presentation was a few examples
+
+More pipeline operators in the works for future releases. 
+
+$out operator coming that will let you pipe output to new collection (not there yet)
+
+MongoS can route pipeline only to shards that have the data you want if you give it the shard key.
+
+Use cases include replacing map_reduce and group commands, ad-hoc reporting, real-time analytics, and visualization. 

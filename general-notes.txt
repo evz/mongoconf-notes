@@ -1,1 +1,51 @@
 ## notes
+
+BSON spec: BSONSpec.org 
+BSON basically JSON with added scalars and types
+
+Embedded Documents Pros and cons:
+
+* Great for read performance
+* Write performance slows because documents are larger
+* If something needs to be updated separately, generally better as an embedded or linked object
+
+All docs need _id field. Whether or not it's a BSON object id
+
+Mongo uses memory mapping to map memory addresses to files. Works at OS level. 
+Embedding vs denormalizing directly impacts this. If you're needing to query multiple docs rather than just one denormalized
+doc, the chances of having to read from disk is higher.
+
+
+Mathias Stern has write up of storage internals on 10gen site
+
+Indexes
+* Can make queries faster depending on how the index is ordered. Compound index can be constructed based on how your application is design
+* Cursor objects basically talk to index. Once you iterate over the cursor, MongoDB actually starts talking to DB.
+* .explain() on the cursor can give you the method it used to find the results. Holy Grail is index only queries from BTreeCursor not Basic
+* When index is not in memory, query will have to read to disk.
+* Get collection stats. Find how big the index is and make sure it can fit in RAM
+* Make sure array fields are indexed
+* Same is true for embedded docs
+
+$elemMatch used for restricting your query to a particular array element
+
+batchSize on cursor can get more docs in cursor before having to talk to DB again while iterating
+
+Sparse indexing can efficiently index fields that actually exist instead of all possible fields
+
+Sharding
+* Shards at the collection level
+* Connect to mongos and add Shard db.runCommand({'addshard': 'shard1.example.com'})
+* db.runCommand({ shardCollection: 'whatever.thing', key: {'keyname': 1}}) # 1 means yes, 0 means no, key is field in document
+* Mongos decides how to create chunks from data based on keys
+* Can just add shards on the fly
+* Data to memory ratio goes down as shards are added
+* When writing shard key is required. Updates, removes, shard key is optional
+* Reads, shard key is optional.
+
+How to choose a shard key
+* ObjectID / auto increment will basically write everything to one shard but reads will be quick
+* something like a hash of the data will evenly distribute and but reads will be less optimal
+* An compromise would be a combination of the two.
+
+jmikola.github.com/slides

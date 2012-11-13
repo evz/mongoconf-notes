@@ -1,0 +1,11 @@
+Openshift
+
+Platform as a service competitor to Heroku and the like
+Relatively expansive (?) free tier
+Uses git in a Heroku like fashion
+Pros compared to others:
+* limited shell access
+* 10gen MMS easily configurable
+
+Cons:
+* 

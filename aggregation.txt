@@ -1,0 +1,15 @@
+Aggregation Framework
+
+* Old way of doing this kind of stuff was either data warehousing and having SQL run reports or MapReduce
+* Aggregation framework uses BSON to declare operations and executes in C++ which takes advantage of multiple cores, etc unlike map reduce which has to fight with other JS stuff for global JS lock
+* Pipelines built like UNIX command line (take out of one thing and pipe it into something else)
+* Aggregation FW makes Mongo less a data store and gives it powerful analytic tools
+
+* Some pipline operators work like a normal .find query (like $match, $sort, $limit, $skip)
+* $project allows for renaming and computing fields. Also can be used to create and extract sub document fields from collections
+* $group can group by a field or by the result of a calculation on a field ($avg, $sum, $min, $max, etc)
+* $unwind can take values from array fields and explode them out into separate docs
+
+* Lots of expressions available for $project and $group (look at the docs)
+
+Rest of presentation was a few examples
